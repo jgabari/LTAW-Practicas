@@ -55,6 +55,7 @@ const server = http.createServer((req, res) => {
     const url = new URL(req.url, 'http://' + req.headers['host']);
     console.log('RECURSO PEDIDO: ' + url.pathname);
     fichero = url.pathname.slice(1);
+    console.log("FICHERO QUE SE BUSCA: " + fichero);
 
     fs.readFile(fichero, (err, data) => {
 
@@ -63,21 +64,33 @@ const server = http.createServer((req, res) => {
             console.log(err.message);
             code = 404;
             code_msg = "Not Found";
+            res.setHeader('Content-Type', 'text/html');
             page = pagina_error;
         }
         else {
+            console.log("Fichero encontrado!");
             punto = fichero.indexOf('.');
             extension = fichero.slice(punto + 1);
+            code = 200;
+            code_msg = "OK"
             if (extension == 'html'){
-
-            } else if (extension == 'jpg' || extension == 'png') {
-
+                res.setHeader('Content-Type', 'text/html');
+            } else if (extension == 'jpg'){
+                res.setHeader('Content-Type', 'image/jpg');
+            } else if (extension == 'png') {
+                res.setHeader('Content-Type', 'image/png');
             } else if (extension == 'css') {
-                
+                res.setHeader('Content-Type', 'text/css');
             }
+            page = data;
         }
     })
 
+    res.statusCode = code;
+    res.statusMessage = code_msg;
+    res.write(page);
+    res.end();
+    console.log("Respuesta enviada!");
 });
 
 server.listen(9090);
