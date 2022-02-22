@@ -1,32 +1,3 @@
-//-- El fichero de mi tienda
-
-//-- * Fichero .html
-//-- * Ficheros de imagenes .jpg .png
-//-- * Ficheros .css
-//-- Devolver el fichero pedido
-//-- Si no se localiza MENSAJE DE ERROR
-
-//-- CREAR UN SERVIDOR
-//-- Se llama a la funcion de retrollamada cada vez que hay una peticion
-
-//-- Localizar el recurso que nos piden+
-//-- (Sacarlo por la consola)
-//-- OBTENER el nombre del fichero
-
-//-- LECTURA ASINCRONA del fichero
-//  -- Funcion de retrollamada de lectura
-//  -- Imprimir en la consola el nombre del fichero que estoy leyendo
-//  -- Si hay error generar la pagina html de error (en una constante, no hace falta fichero)
-//  -- Si no hay error
-//    -- Devolver el contenido como respuesta
-//    -- La respuesta depende del tipo de fichero
-//      -- HTML: Cabecera: 'Content-Type', 'text-html'
-//      -- IMAGEN: 'image/jpg', 'image/png'
-//      -- CSS: 'text/css'
-
-//      -- Para saber el tipo del fichero:
-//        -- por la extension sacandola del nombre
-//------------------------------------------------------------------------------------------------------------------------------------------------
 const http = require('http');
 const fs = require('fs');
 
@@ -51,28 +22,44 @@ const pagina_error = `
 const server = http.createServer((req, res) => {
 
     console.log("Petición recibida!");
+
+    //Valores por defecto de la respuesta
+    let code = 200;
+    let code_msg = 'OK';
+    let page = '';
     
+    //Construyo la URL que ha solicitado el cliente y extraigo el recurso solicitado
     const url = new URL(req.url, 'http://' + req.headers['host']);
     console.log('RECURSO PEDIDO: ' + url.pathname);
-    fichero = url.pathname.slice(1);
+
+    //Saco el nombre del fichero que tengo que buscar
+    let fichero = '';
+    if (url.pathname=='/') {
+        fichero = 'index.html';
+    } else if (url.pathname=='/favicon.ico') {
+        fichero = 'icono.jpg';
+    } else {
+        fichero = url.pathname.slice(1);
+    }
     console.log("FICHERO QUE SE BUSCA: " + fichero);
 
+    //Lectura asincrona del fichero
     fs.readFile(fichero, (err, data) => {
 
         if (err) {
+            //Si no se encuentra el fichero
             console.log("Error!");
             console.log(err.message);
             code = 404;
             code_msg = "Not Found";
             res.setHeader('Content-Type', 'text/html');
             page = pagina_error;
-        }
-        else {
+        } else {
             console.log("Fichero encontrado!");
+            //Extraigo la extension del nombre del fichero segun cual sea
+            //hago la respuesta que corresponda
             punto = fichero.indexOf('.');
             extension = fichero.slice(punto + 1);
-            code = 200;
-            code_msg = "OK"
             if (extension == 'html'){
                 res.setHeader('Content-Type', 'text/html');
             } else if (extension == 'jpg'){
@@ -84,13 +71,15 @@ const server = http.createServer((req, res) => {
             }
             page = data;
         }
+        //Asigno los valores de la respuesta y la envio
+        res.statusCode = code;
+        res.statusMessage = code_msg;
+        res.write(page);
+        res.end();
+        console.log("Respuesta enviada!");
     })
-
-    res.statusCode = code;
-    res.statusMessage = code_msg;
-    res.write(page);
-    res.end();
-    console.log("Respuesta enviada!");
 });
 
+//Lanzo el servidor
 server.listen(9090);
+console.log('Servidor escuchando en el puerto ' + PUERTO);
