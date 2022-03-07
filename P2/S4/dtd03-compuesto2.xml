@@ -6,8 +6,8 @@
 ]>
 <tienda>
     <producto>
-
+        uno
     </producto>
 
-    <producto></producto>
+    <producto>otro</producto>
 </tienda>
