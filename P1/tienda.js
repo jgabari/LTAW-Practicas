@@ -21,6 +21,7 @@ const pagina_error = `
 
 const server = http.createServer((req, res) => {
 
+    console.log("_____________________________________________");
     console.log("Petición recibida!");
 
     //Valores por defecto de la respuesta
@@ -37,7 +38,7 @@ const server = http.createServer((req, res) => {
     if (url.pathname=='/') {
         fichero = 'index.html';
     } else if (url.pathname=='/favicon.ico') {
-        fichero = 'icono.jpg';
+        fichero = 'icono.png';
     } else {
         fichero = url.pathname.slice(1);
     }

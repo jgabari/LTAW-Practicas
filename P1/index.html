@@ -1,47 +1,37 @@
-<!-- Mi tienda
-*Producto1 - producto1.html
-*Producto2 - producto2.html
-*Producto3 - producto3.html
-*CSS
-*logo - logo.jpg
-index -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="icono.png" type="image/x-icon">
     <title>Mi tienda</title>
 </head>
 <body>
-    <h1>MI TIENDA</h1>
-    <table>
-        <tr>
-            <th><a href="producto1.html"><h2>X100PRE</h2></a></th>
-            <th><a href="producto2.html"><h2>YHLQMDLG</h2></a></th>
-            <th><a href="producto3.html"><h2>EL ÚLTIMO TOUR DEL MUNDO</h2></a></th>
-        </tr>
-        <tr>
-            <td>
-                <a href="producto1.html"><img src="x100pre.jpg" alt="x100pre"></a>
-            </td>
-            <td>
-                <a href="producto2.html"><img src="yhlqmdlg.jpg" alt="yhlqmdlg"></a>
-            </td>
-            <td>
-                <a href="producto3.html"><img src="elultimotourdelmundo.jpg" alt="elultimotourdelmundo"></a>
-            </td>
-        </tr>
-        <tr>
-            <td>15'50€</td>
-            <td>14'86€</td>
-            <td>17€</td>
-        </tr>
-        <tr>
-            <td><a href="producto1.html">+info</a></td>
-            <td><a href="producto2.html">+info</a></td>
-            <td><a href="producto3.html">+info</a></td>
-        </tr>
-    </table>
+    <div class="main">
+        <h1 id="titulo">DISCOS BAD BUNNY</h1>
+        <div class="gallery">
+            <a href="producto1.html">
+                <img src="producto1.jpg" alt="">
+                <div class="desc">X100PRE</div>
+            </a>
+        </div>
+
+        <div class="gallery">
+            <a href="producto2.html">
+                <img src="producto2.jpg" alt="">
+                <div class="desc">YHLQMDLG</div>
+            </a>
+        </div>
+
+        <div class="gallery">
+            <a href="producto3.html">
+                <img src="producto3.jpg" alt="">
+                <div class="desc">EL ULTIMO TOUR DEL MUNDO</div>
+            </a>
+        </div>
+    </div>
 </body>
 </html>
