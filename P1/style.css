@@ -49,3 +49,14 @@ div.main {
 a {
   text-decoration: none;
 }
+
+div.info {
+  float: right;
+  text-align: left;
+  background-color: black;
+  color: white;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 5px;
+  margin-left: 10px;
+}
+
