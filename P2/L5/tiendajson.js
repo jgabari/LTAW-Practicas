@@ -21,7 +21,7 @@ tienda.usuarios.forEach((element)=>{
 console.log("Número de productos: " + tienda.productos.length);
 
 tienda.productos.forEach((element)=>{
-    console.log("-- " + element.nombre);
+    console.log("-- " + element.nombre + " (" + element.stock + ")");
 });
 
 // -- Pedidos
