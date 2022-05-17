@@ -60,3 +60,19 @@ div.info {
   margin-left: 10px;
 }
 
+#login {
+  background-color: black;
+  color: white;
+  letter-spacing: 5px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 20px;
+  float: right;
+}
+
+#aviso {
+  background-color: white;
+  color: black;
+  letter-spacing: 5px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+}

@@ -1,5 +1,6 @@
 const http = require('http');
 const fs = require('fs');
+const inspector = require('inspector');
 
 const PUERTO = 9090;
 
@@ -19,6 +20,13 @@ const pagina_error = `
 </html>
 `
 
+const FICHERO_JSON = 'tienda.json';
+const tienda_json = fs.readFileSync(FICHERO_JSON);
+const tienda = JSON.parse(tienda_json);
+
+// const BIENVENIDA = fs.readFileSync('bienvenida.html', 'utf-8');
+// const LOGIN_ERROR = fs.readFileSync('login_error.html', 'utf-8');
+
 const server = http.createServer((req, res) => {
 
     console.log("_____________________________________________");
@@ -32,6 +40,7 @@ const server = http.createServer((req, res) => {
     //Construyo la URL que ha solicitado el cliente y extraigo el recurso solicitado
     const url = new URL(req.url, 'http://' + req.headers['host']);
     console.log('RECURSO PEDIDO: ' + url.pathname);
+    const nickname = url.searchParams.get('nick');
 
     //Saco el nombre del fichero que tengo que buscar
     let fichero = '';
@@ -41,6 +50,20 @@ const server = http.createServer((req, res) => {
         fichero = 'icono.png';
     } else if (url.pathname=='/productos') {
         fichero = 'tienda.json';
+    } else if (url.pathname == '/login') {
+        console.log("Login: " + nickname);
+        found = false;
+        for (i = 0; i < tienda.usuarios.length; i++) {
+            if (tienda.usuarios[i].nickname == nickname) {
+                found = true;
+                console.log('***** Usuario encontrado');
+            }
+        }
+        if (found == true) {
+            fichero = 'bienvenida.html';
+        } else {
+            fichero = 'login_error.html';
+        }
     } else {
         fichero = url.pathname.slice(1);
     }
@@ -75,6 +98,9 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Content-Type', 'application/json');
             }
             page = data;
+            if (fichero == 'bienvenida.html' || fichero == 'login_error.html') {
+                page = page.toString().replace("USUARIO", nickname);
+            }
         }
         //Asigno los valores de la respuesta y la envio
         res.statusCode = code;
