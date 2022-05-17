@@ -39,6 +39,8 @@ const server = http.createServer((req, res) => {
         fichero = 'index.html';
     } else if (url.pathname=='/favicon.ico') {
         fichero = 'icono.png';
+    } else if (url.pathname=='/productos') {
+        fichero = 'tienda.json';
     } else {
         fichero = url.pathname.slice(1);
     }
@@ -69,6 +71,8 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Content-Type', 'image/png');
             } else if (extension == 'css') {
                 res.setHeader('Content-Type', 'text/css');
+            } else if (extension == 'json') {
+                res.setHeader('Content-Type', 'application/json');
             }
             page = data;
         }
