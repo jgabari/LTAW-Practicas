@@ -48,6 +48,11 @@ div.main {
 
 a {
   text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  color: #ccc;
 }
 
 div.info {
@@ -59,7 +64,7 @@ div.info {
   margin-left: 10px;
 }
 
-a.enlace {
+div.botonesarriba {
   background-color: black;
   color: white;
   letter-spacing: 5px;

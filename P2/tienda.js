@@ -41,12 +41,27 @@ const server = http.createServer((req, res) => {
     const url = new URL(req.url, 'http://' + req.headers['host']);
     console.log('RECURSO PEDIDO: ' + url.pathname);
 
-    //Saco el nombre del fichero que tengo que buscar
+    //Inicialización de variables
     let fichero = '';
     let nickname = '';
     let direccion = '';
     let tarjeta = '';
     let nuevo_pedido = {};
+    let cookie = '';
+
+    //Extraigo las cookies si las hay
+    cookie = req.headers.cookie;
+    if (cookie) {
+        let pares = cookie.split(';');
+        pares.forEach((element, index) => {
+            let [nombre, valor] = element.split('=');
+            if (nombre.trim() === 'user') {
+                nickname = valor;
+            }
+        });
+    }
+
+    // Saco el nombre del fichero que tengo que buscar
     if (url.pathname=='/') {
         fichero = 'index.html';
     } else if (url.pathname=='/favicon.ico') {
@@ -78,14 +93,8 @@ const server = http.createServer((req, res) => {
         fs.writeFileSync(FICHERO_JSON, tienda_json);
     } else if (url.pathname == '/login.html') {
         fichero = 'login.html';
-        const cookie = req.headers.cookie;
-        if (cookie) {
-            const cookie_name = cookie.split('=')[0];
-            const cookie_value = cookie.split('=')[1];
-            if (cookie_name == 'user'){
-                nickname = cookie_value;
-                fichero = 'yalogeado.html';
-            }
+        if (nickname) {
+            fichero = 'yalogeado.html';
         }
     } else {
         fichero = url.pathname.slice(1);
@@ -125,6 +134,12 @@ const server = http.createServer((req, res) => {
             page = data;
             if (fichero == 'bienvenida.html' || fichero == 'login_error.html' || fichero == 'yalogeado.html') {
                 page = page.toString().replace("USUARIO", nickname);
+            } else if (fichero == 'index.html') {
+                if (nickname) {
+                    const ENLACE_LOGIN = '<a href="login.html">-LOGIN</a>';
+                    const NOMBRE_USUARIO = nickname;
+                    page = page.toString().replace(ENLACE_LOGIN, NOMBRE_USUARIO);
+                }
             }
         }
         //Asigno los valores de la respuesta y la envio
