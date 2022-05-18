@@ -103,16 +103,22 @@ const server = http.createServer((req, res) => {
             fichero = 'yalogeado.html';
         }
     } else if (url.pathname == '/carrito_x100pre') {
-        cookie_carrito += "x100pre:"
-        res.setHeader('Set-Cookie', cookie_carrito);
+        if (nickname) {
+            cookie_carrito += "x100pre:"
+            res.setHeader('Set-Cookie', cookie_carrito);
+        }
         fichero = 'producto1.html';
     } else if (url.pathname == '/carrito_yhlqmdlg') {
-        cookie_carrito += "yhlqmdlg:"
-        res.setHeader('Set-Cookie', cookie_carrito);
+        if (nickname) {
+            cookie_carrito += "yhlqmdlg:"
+            res.setHeader('Set-Cookie', cookie_carrito);
+        }
         fichero = 'producto2.html';
     } else if (url.pathname == '/carrito_ultimotour') {
-        cookie_carrito += "elultimotourdelmundo:";
-        res.setHeader('Set-Cookie', cookie_carrito);
+        if (nickname) {
+            cookie_carrito += "elultimotourdelmundo:";
+            res.setHeader('Set-Cookie', cookie_carrito);
+        }
         fichero = 'producto3.html';
     } else {
         fichero = url.pathname.slice(1);
