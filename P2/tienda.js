@@ -49,6 +49,7 @@ const server = http.createServer((req, res) => {
     let nuevo_pedido = {};
     let cookie = '';
     let cookie_carrito = 'carrito=';
+    let carrito = [];
 
     //Extraigo las cookies si las hay
     cookie = req.headers.cookie;
@@ -60,6 +61,8 @@ const server = http.createServer((req, res) => {
                 nickname = valor;
             } else if (nombre.trim() === 'carrito') {
                 cookie_carrito = element;
+                carrito = valor.split(':');
+                carrito.pop();
             }
         });
     }
@@ -90,7 +93,7 @@ const server = http.createServer((req, res) => {
         fichero = 'compra_realizada.html';
         direccion = url.searchParams.get('direccion');
         tarjeta = url.searchParams.get('tarjeta');
-        nuevo_pedido = {"nickname": "","direccion":direccion,"tarjeta":tarjeta,"producto":""};
+        nuevo_pedido = {"nickname": nickname,"direccion":direccion,"tarjeta":tarjeta,"producto":carrito};
         tienda['pedidos'].push(nuevo_pedido);
         tienda_json = JSON.stringify(tienda);
         fs.writeFileSync(FICHERO_JSON, tienda_json);
@@ -155,6 +158,13 @@ const server = http.createServer((req, res) => {
                     const NOMBRE_USUARIO = nickname;
                     page = page.toString().replace(ENLACE_LOGIN, NOMBRE_USUARIO);
                 }
+            } else if (fichero == 'finalizar_compra.html') {
+                let LISTACARRITO = '<ul>';
+                carrito.forEach((element) => {
+                    LISTACARRITO += '<li>'+element+'</li>';
+                })
+                LISTACARRITO += '</ul>';
+                page = page.toString().replace('LISTACARRITO', LISTACARRITO);
             }
         }
         //Asigno los valores de la respuesta y la envio
