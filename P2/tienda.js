@@ -165,6 +165,15 @@ const server = http.createServer((req, res) => {
                 })
                 LISTACARRITO += '</ul>';
                 page = page.toString().replace('LISTACARRITO', LISTACARRITO);
+            } else if (fichero == 'producto1.html') {
+                const DESCRIPCION = tienda.productos[0].descripcion;
+                page = page.toString().replace('DESCRIPCIONJSON', DESCRIPCION);
+            } else if (fichero == 'producto2.html') {
+                const DESCRIPCION = tienda.productos[1].descripcion;
+                page = page.toString().replace('DESCRIPCIONJSON', DESCRIPCION);
+            } else if (fichero == 'producto3.html') {
+                const DESCRIPCION = tienda.productos[2].descripcion;
+                page = page.toString().replace('DESCRIPCIONJSON', DESCRIPCION);
             }
         }
         //Asigno los valores de la respuesta y la envio
