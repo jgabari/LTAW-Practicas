@@ -63,6 +63,7 @@ const server = http.createServer((req, res) => {
             }
         }
         if (found == true) {
+            res.setHeader('Set-Cookie', "user="+nickname);
             fichero = 'bienvenida.html';
         } else {
             fichero = 'login_error.html';
@@ -75,6 +76,17 @@ const server = http.createServer((req, res) => {
         tienda['pedidos'].push(nuevo_pedido);
         tienda_json = JSON.stringify(tienda);
         fs.writeFileSync(FICHERO_JSON, tienda_json);
+    } else if (url.pathname == '/login.html') {
+        fichero = 'login.html';
+        const cookie = req.headers.cookie;
+        if (cookie) {
+            const cookie_name = cookie.split('=')[0];
+            const cookie_value = cookie.split('=')[1];
+            if (cookie_name == 'user'){
+                nickname = cookie_value;
+                fichero = 'yalogeado.html';
+            }
+        }
     } else {
         fichero = url.pathname.slice(1);
     }
@@ -111,7 +123,7 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Content-Type', 'application/json');
             }
             page = data;
-            if (fichero == 'bienvenida.html' || fichero == 'login_error.html') {
+            if (fichero == 'bienvenida.html' || fichero == 'login_error.html' || fichero == 'yalogeado.html') {
                 page = page.toString().replace("USUARIO", nickname);
             }
         }
