@@ -81,7 +81,7 @@ div.botonesarriba {
   font-size: 30px;
 }
 
-#enviar {
+#boton {
   background-color: black;
   border: 1px solid #ccc;
   color: white;
@@ -90,6 +90,6 @@ div.botonesarriba {
   float: right;
 }
 
-#enviar:hover {
+#boton:hover {
   border: 1px solid rgb(65, 65, 65);
 }
