@@ -56,11 +56,10 @@ div.info {
   background-color: black;
   color: white;
   font-family: "Bebas Neue", sans-serif;
-  letter-spacing: 5px;
   margin-left: 10px;
 }
 
-#login {
+a.enlace {
   background-color: black;
   color: white;
   letter-spacing: 5px;
@@ -75,4 +74,17 @@ div.info {
   letter-spacing: 5px;
   font-family: "Bebas Neue", sans-serif;
   font-size: 30px;
+}
+
+#enviar {
+  background-color: black;
+  border: 1px solid #ccc;
+  color: white;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 20px;
+  float: right;
+}
+
+#enviar:hover {
+  border: 1px solid rgb(65, 65, 65);
 }

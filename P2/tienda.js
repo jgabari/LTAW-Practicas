@@ -21,8 +21,8 @@ const pagina_error = `
 `
 
 const FICHERO_JSON = 'tienda.json';
-const tienda_json = fs.readFileSync(FICHERO_JSON);
-const tienda = JSON.parse(tienda_json);
+let tienda_json = fs.readFileSync(FICHERO_JSON);
+let tienda = JSON.parse(tienda_json);
 
 // const BIENVENIDA = fs.readFileSync('bienvenida.html', 'utf-8');
 // const LOGIN_ERROR = fs.readFileSync('login_error.html', 'utf-8');
@@ -40,10 +40,13 @@ const server = http.createServer((req, res) => {
     //Construyo la URL que ha solicitado el cliente y extraigo el recurso solicitado
     const url = new URL(req.url, 'http://' + req.headers['host']);
     console.log('RECURSO PEDIDO: ' + url.pathname);
-    const nickname = url.searchParams.get('nick');
 
     //Saco el nombre del fichero que tengo que buscar
     let fichero = '';
+    let nickname = '';
+    let direccion = '';
+    let tarjeta = '';
+    let nuevo_pedido = {};
     if (url.pathname=='/') {
         fichero = 'index.html';
     } else if (url.pathname=='/favicon.ico') {
@@ -51,12 +54,12 @@ const server = http.createServer((req, res) => {
     } else if (url.pathname=='/productos') {
         fichero = 'tienda.json';
     } else if (url.pathname == '/login') {
+        nickname = url.searchParams.get('nick');
         console.log("Login: " + nickname);
         found = false;
         for (i = 0; i < tienda.usuarios.length; i++) {
             if (tienda.usuarios[i].nickname == nickname) {
                 found = true;
-                console.log('***** Usuario encontrado');
             }
         }
         if (found == true) {
@@ -64,10 +67,20 @@ const server = http.createServer((req, res) => {
         } else {
             fichero = 'login_error.html';
         }
+    } else if (url.pathname == '/finalizar') {
+        fichero = 'compra_realizada.html';
+        direccion = url.searchParams.get('direccion');
+        tarjeta = url.searchParams.get('tarjeta');
+        nuevo_pedido = {"nickname": "","direccion":direccion,"tarjeta":tarjeta,"producto":""};
+        tienda['pedidos'].push(nuevo_pedido);
+        tienda_json = JSON.stringify(tienda);
+        fs.writeFileSync(FICHERO_JSON, tienda_json);
     } else {
         fichero = url.pathname.slice(1);
     }
     console.log("FICHERO QUE SE BUSCA: " + fichero);
+
+
 
     //Lectura asincrona del fichero
     fs.readFile(fichero, (err, data) => {
