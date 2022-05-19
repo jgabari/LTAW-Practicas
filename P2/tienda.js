@@ -1,6 +1,5 @@
 const http = require('http');
 const fs = require('fs');
-const inspector = require('inspector');
 
 const PUERTO = 9090;
 
@@ -27,9 +26,6 @@ let lista_productos = [];
 tienda.productos.forEach((element) => {
     lista_productos.push(element.nombre);
 })
-
-// const BIENVENIDA = fs.readFileSync('bienvenida.html', 'utf-8');
-// const LOGIN_ERROR = fs.readFileSync('login_error.html', 'utf-8');
 
 const server = http.createServer((req, res) => {
 
