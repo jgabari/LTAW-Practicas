@@ -192,8 +192,8 @@ const server = http.createServer((req, res) => {
                     }
                     page = JSON.stringify(result);
                 } else if (nickname) {
-                    const ENLACE_LOGIN = '<a href="login.html">-LOGIN</a>';
-                    const NOMBRE_USUARIO = nickname;
+                    const ENLACE_LOGIN = '<a id="botonlogin" href="login.html">LOGIN</a>';
+                    const NOMBRE_USUARIO = '<a id="botonlogin" href="yalogeado.html">' + nickname + '</a>';
                     page = page.toString().replace(ENLACE_LOGIN, NOMBRE_USUARIO);
                 }
             } else if (fichero == 'finalizar_compra.html') {
