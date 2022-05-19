@@ -64,13 +64,21 @@ div.info {
   margin-left: 10px;
 }
 
-div.botonesarriba {
+div.partearriba {
   background-color: black;
   color: white;
   letter-spacing: 5px;
   font-family: "Bebas Neue", sans-serif;
   font-size: 20px;
+  width: 100%;
+}
+
+#botonfin {
   float: right;
+}
+
+#botonlogin {
+  float: left;
 }
 
 #aviso {
@@ -92,4 +100,26 @@ div.botonesarriba {
 
 #boton:hover {
   border: 1px solid rgb(65, 65, 65);
+}
+
+#autocompletar {
+  position: relative;
+  display: inline-block;
+}
+
+#caja {
+  border: 1px solid transparent;
+  background-color: white;
+  font-size: 16px;
+  width: 200px;
+  float: left;
+}
+
+#display1 {
+  background-color: white;
+  color: black;
+}
+
+#botonbuscar {
+  float: left;
 }

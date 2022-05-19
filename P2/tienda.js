@@ -23,6 +23,10 @@ const pagina_error = `
 const FICHERO_JSON = 'tienda.json';
 let tienda_json = fs.readFileSync(FICHERO_JSON);
 let tienda = JSON.parse(tienda_json);
+let lista_productos = [];
+tienda.productos.forEach((element) => {
+    lista_productos.push(element.nombre);
+})
 
 // const BIENVENIDA = fs.readFileSync('bienvenida.html', 'utf-8');
 // const LOGIN_ERROR = fs.readFileSync('login_error.html', 'utf-8');
@@ -120,6 +124,20 @@ const server = http.createServer((req, res) => {
             res.setHeader('Set-Cookie', cookie_carrito);
         }
         fichero = 'producto3.html';
+    } else if (url.pathname == '/busqueda') {
+        fichero = 'index.html';
+    } else if (url.pathname == '/buscar') {
+        let se_busca = url.searchParams.get('producto');
+        se_busca = se_busca.toUpperCase();
+        if (se_busca == 'X100PRE') {
+            fichero = 'producto1.html';
+        } else if (se_busca == 'YHLQMDLG') {
+            fichero = 'producto2.html';
+        } else if (se_busca == 'ELULTIMOTOURDELMUNDO') {
+            fichero = 'producto3.html';
+        } else {
+            fichero = 'index.html';
+        }
     } else {
         fichero = url.pathname.slice(1);
     }
@@ -129,7 +147,7 @@ const server = http.createServer((req, res) => {
 
     //Lectura asincrona del fichero
     fs.readFile(fichero, (err, data) => {
-
+        
         if (err) {
             //Si no se encuentra el fichero
             console.log("Error!");
@@ -154,12 +172,30 @@ const server = http.createServer((req, res) => {
                 res.setHeader('Content-Type', 'text/css');
             } else if (extension == 'json') {
                 res.setHeader('Content-Type', 'application/json');
+            } else if (extension == 'js') {
+                res.setHeader('Content-Type', 'aplication/javascript');
             }
             page = data;
             if (fichero == 'bienvenida.html' || fichero == 'login_error.html' || fichero == 'yalogeado.html') {
                 page = page.toString().replace("USUARIO", nickname);
             } else if (fichero == 'index.html') {
-                if (nickname) {
+                if (url.pathname == '/busqueda') {
+                    res.setHeader('Content-Type', "application/json");
+                    //-- Leer los parámetros
+                    let param1 = url.searchParams.get('param1');
+                    param1 = param1.toUpperCase();
+                    let result = [];
+                    for (let prod of lista_productos) {
+                        //-- Pasar a mayúsculas
+                        prodU = prod.toUpperCase();
+                        //-- Si el producto comienza por lo indicado en el parametro
+                        //-- meter este producto en el array de resultados
+                        if (prodU.startsWith(param1)) {
+                            result.push(prod);
+                        }
+                    }
+                    page = JSON.stringify(result);
+                } else if (nickname) {
                     const ENLACE_LOGIN = '<a href="login.html">-LOGIN</a>';
                     const NOMBRE_USUARIO = nickname;
                     page = page.toString().replace(ENLACE_LOGIN, NOMBRE_USUARIO);

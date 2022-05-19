@@ -7,13 +7,19 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas+Neue">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="icono.png" type="image/x-icon">
+    <script src="cliente.js" defer></script>
     <title>Mi tienda</title>
 </head>
 <body>
     <div class="main">
-        <div class="botonesarriba">
-            <a href="finalizar_compra.html">FINALIZAR COMPRA-</a>
-            <a href="login.html">-LOGIN</a>
+        <div class="partearriba">
+            <form id="autocompletar" action="/buscar" method="get">
+                <input type="text" id="caja" placeholder="Buscar..." name="producto">
+                <p id="display1"></p>
+                <input id="botonbuscar" type="submit" value="Buscar">
+            </form>
+            <a id="botonfin" href="finalizar_compra.html">FINALIZAR COMPRA</a>
+            <a id="botonlogin" href="login.html">LOGIN</a>
         </div>
         <h1 id="titulo">DISCOS BAD BUNNY</h1>
         <div class="gallery">
