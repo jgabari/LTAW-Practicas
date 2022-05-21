@@ -13,7 +13,13 @@ electron.app.on('ready', () => {
     // Crear la ventana principal
     win = new electron.BrowserWindow({
         width: 600,
-        height: 400
+        height: 600,
+
+        // permitir acceso al sistema
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
     });
 
     // Para quitar el menu
