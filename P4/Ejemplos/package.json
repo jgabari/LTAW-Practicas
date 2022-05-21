@@ -4,9 +4,22 @@
     "version": "0.1.0",
     "main": "main.js",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder",
+        "postinstall": "electron-builder install-app-deps"
     },
-    "dependencies": {
-        "electron": "^18.2.4"
+    "build": {
+        "appId": "mi-electron-app-1-id",
+        "linux": {
+            "target": [
+                "portable"
+            ],
+            "category": "Utility"
+        }
+    },
+    "devDependencies": {
+        "electron": "^18.0.1",
+        "electron-builder": "^23.0.3"
     }
 }
