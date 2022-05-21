@@ -15,4 +15,7 @@ electron.app.on('ready', () => {
         width: 600,
         height: 400
     });
+
+    // Para quitar el menu
+    win.setMenuBarVisibility(false);
 })
