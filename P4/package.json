@@ -1,0 +1,13 @@
+{
+    "name": "mi-electron-chat",
+    "description": "Aplicacion de chat en Electron",
+    "version": "0.1.0",
+    "main": "servidor.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "dependencies": {
+        "electron": "^18.2.4",
+        "ip": "^1.1.8"
+    }
+}
