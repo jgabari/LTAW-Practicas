@@ -17,5 +17,8 @@ electron.app.on('ready', () => {
     });
 
     // Para quitar el menu
-    win.setMenuBarVisibility(false);
+    //win.setMenuBarVisibility(false);
+
+    // Cargar contenido web
+    win.loadURL('https://www.urjc.es/etsit');
 })
