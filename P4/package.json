@@ -4,12 +4,25 @@
     "version": "0.1.0",
     "main": "servidor.js",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "pack": "electron-builder --dir",
+        "dist": "electron-builder",
+        "postinstall": "electron-builder install-app-deps"
     },
-    "dependencies": {
+    "build": {
+        "appId": "mi-electron-app-1-id",
+        "linux": {
+            "target": [
+                "portable"
+            ],
+            "category": "Utility"
+        }
+    },
+    "devDependencies": {
         "electron": "^18.2.4",
         "ip": "^1.1.8",
         "qr": "^0.2.4",
-        "qrcode": "^1.5.0"
+        "qrcode": "^1.5.0",
+        "electron-builder": "^23.0.3"
     }
 }
