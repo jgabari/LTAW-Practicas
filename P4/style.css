@@ -15,6 +15,18 @@ h2 {
     color: red;
 }
 
+#datos {
+    width: 50%;
+    border-color: greenyellow;
+    float: left;
+}
+
+#mensajes {
+    width: 50%;
+    border-color: greenyellow;
+    float: right;
+}
+
 input {
     background-color: black;
     color: greenyellow;
@@ -23,6 +35,11 @@ input {
     border-color: greenyellow;
     width: 100%;
     height: 30px;
+}
+
+input:hover {
+    border-color: green;
+    color: green;
 }
 
 @font-face {

@@ -11,19 +11,26 @@
     <title>Mi Chat en Electron</title>
 </head>
 <body>
-    <h1>INTERFAZ GRÁFICA</h1>
-    <h2>Información:</h2>
-    <ul>
-        <li>Version de Node: <span id="node_v" class="info"></span></li>
-        <li>Version de Chrome: <span id="chrome_v" class="info"></span></li>
-        <li>Version de Electron: <span id="electron_v" class="info"></span></li>
-    </ul>
-    <h2>Usuarios conectados:</h2>
-    <span id="users_n" class="info"></span>
-    <h2>Dirección IP:</h2>
-    <a>http://<span id="dir_ip" class="info"></span>:<span id="port" class="info"></span>/chat.html</p></a>
-    <p><input type="button" value="Mensaje de prueba" id="btn_test"></p>
-    <h2>Mensajes:</h2>
-    <p id="msgs"></p>
+    <div id="titulo">
+        <h1>INTERFAZ GRÁFICA</h1>
+    </div>
+    <div id="datos">
+        <h2>Información:</h2>
+        <ul>
+            <li>Version de Node: <span id="node_v" class="info"></span></li>
+            <li>Version de Chrome: <span id="chrome_v" class="info"></span></li>
+            <li>Version de Electron: <span id="electron_v" class="info"></span></li>
+        </ul>
+        <h2>Usuarios conectados:</h2>
+        <span id="users_n" class="info"></span>
+        <h2>URL Cliente:</h2>
+        <p><span id="c_url" class="info"></span></p>
+        <canvas id="canvas"></canvas>
+    </div>
+    <div id="mensajes">
+        <p><input type="button" value="Mensaje de prueba" id="btn_test"></p>
+        <h2>Mensajes:</h2>
+        <p id="msgs"></p>
+    </div>
 </body>
 </html>

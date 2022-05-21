@@ -1,5 +1,6 @@
 const electron = require('electron');
 const ip = require('ip');
+const qr = require('qrcode');
 
 console.log("Hola desde el proceso de la web...");
 
@@ -8,10 +9,10 @@ const node_v = document.getElementById("node_v");
 const chrome_v = document.getElementById("chrome_v");
 const electron_v = document.getElementById("electron_v");
 const users_n = document.getElementById("users_n");
-const dir_ip = document.getElementById("dir_ip");
-const port = document.getElementById("port");
+const client_url = document.getElementById("c_url");
 const msgs = document.getElementById("msgs");
 const btn_test = document.getElementById("btn_test");
+const canvas = document.getElementById("canvas");
 
 // Acceder a la api de node para obtener la info
 // Solo se puede si nos han dado permisos desde el main
@@ -24,11 +25,16 @@ electron.ipcRenderer.on('users', (event, message) => {
     users_n.textContent = message;
 })
 
-dir_ip.textContent = ip.address();
+// Varible donde vamos a guardar el puerto que nos dirá el main
+let puerto;
 
 // Informacion del puerto enviada por el main
 electron.ipcRenderer.on('port', (event, message) => {
-    port.textContent = message;
+    puerto = message;
+    // Cadena para construir la url del cliente
+    let c_url = "http://" + ip.address() + ":" + puerto + '/chat.html';
+    client_url.textContent = c_url;
+    qr.toCanvas(canvas, c_url);
 })
 
 btn_test.onclick = () => {

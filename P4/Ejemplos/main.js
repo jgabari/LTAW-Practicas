@@ -12,8 +12,8 @@ electron.app.on('ready', () => {
 
     // Crear la ventana principal
     win = new electron.BrowserWindow({
-        width: 600,
-        height: 600,
+        width: 1200,
+        height: 800,
 
         // permitir acceso al sistema
         webPreferences: {
