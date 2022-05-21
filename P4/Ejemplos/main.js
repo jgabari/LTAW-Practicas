@@ -30,4 +30,10 @@ electron.app.on('ready', () => {
 
     // Cargar html
     win.loadFile("index.html");
+
+    //Cuando la pagina se cargue enviar el mensaje al renderizado
+    win.on('ready-to-show', () => {
+        console.log("HOLA?");
+        win.webContents.send('print', "MENSAJE ENVIADO DESDE EL MAIN");
+    })
 })
