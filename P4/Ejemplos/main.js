@@ -36,4 +36,9 @@ electron.app.on('ready', () => {
         console.log("HOLA?");
         win.webContents.send('print', "MENSAJE ENVIADO DESDE EL MAIN");
     })
+
+    // Al recibir los mensajes del boton de test
+    electron.ipcMain.handle('test', (event, msg) => {
+        console.log("-> Mensaje: " + msg);
+    })
 })
