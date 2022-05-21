@@ -20,5 +20,8 @@ electron.app.on('ready', () => {
     //win.setMenuBarVisibility(false);
 
     // Cargar contenido web
-    win.loadURL('https://www.urjc.es/etsit');
+    //win.loadURL('https://www.urjc.es/etsit');
+
+    // Cargar html
+    win.loadFile("index.html");
 })
