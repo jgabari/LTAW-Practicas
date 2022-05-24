@@ -169,7 +169,7 @@ const server = http.createServer((req, res) => {
             } else if (extension == 'json') {
                 res.setHeader('Content-Type', 'application/json');
             } else if (extension == 'js') {
-                res.setHeader('Content-Type', 'aplication/javascript');
+                res.setHeader('Content-Type', 'application/javascript');
             }
             page = data;
             if (fichero == 'bienvenida.html' || fichero == 'login_error.html' || fichero == 'yalogeado.html') {
